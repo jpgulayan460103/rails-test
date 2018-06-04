@@ -53,3 +53,6 @@ gem "paranoia", "~> 2.2"
 gem 'bootstrap', '~> 4.1.1'
 gem 'angularjs-rails', '~> 1.5', '>= 1.5.6'
 gem 'jquery-rails'
+gem 'lodash-rails'
+gem 'momentjs-rails'
+gem 'kaminari'
