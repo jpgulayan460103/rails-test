@@ -9,7 +9,7 @@
             
         </div>
         <div class="col-sm-10">
-            <%= paginate @users %>
+            <%= paginate @users, remote: true %>
         </div>
     </div>
     <div class="row">
@@ -127,9 +127,9 @@
                 url: url_string,
             }).then(function mySuccess(response) {
                 $scope.loading = false;
-                console.log(response.data.result);
-                $scope.items = response.data.result;
+                console.log(response);
             }, function (rejection) {
+                console.log(rejection);
                 $scope.loading = false;
                 if (rejection.status != 422) {
                     request_error(rejection.status);

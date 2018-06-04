@@ -21,11 +21,16 @@ class ItemsController < ApplicationController
     render :json => @item
   end
   def listItems
+    @users = Item.page(params[:page])
+    
     # render :json => Item.all
+    #   render :json => {
+    #     :result => Item.page(1).total_pages.inspect
+    # }
     respond_to do |format|
       format.html
       format.json do
-        render :json => {:result => Item.page(1) }
+        render partial: "listItems", locals: {users: @users}
       end
     end
     # render plain: paginate @users
