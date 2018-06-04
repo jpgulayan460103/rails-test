@@ -110,6 +110,7 @@ GEM
       railties (>= 3.1)
     multi_json (1.13.1)
     mysql2 (0.3.21-x86-mingw32)
+    net_http_ssl_fix (0.0.10)
     nio4r (2.3.1)
     nokogiri (1.8.2-x86-mingw32)
       mini_portile2 (~> 2.3.0)
@@ -209,6 +210,7 @@ DEPENDENCIES
   lodash-rails
   momentjs-rails
   mysql2 (~> 0.3.18)
+  net_http_ssl_fix
   paranoia (~> 2.2)
   puma (~> 3.7)
   rails (~> 5.1.3)

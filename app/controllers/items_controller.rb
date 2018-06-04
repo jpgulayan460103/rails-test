@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   end
   def show
     @title = 'Items'
-    @users = Item.page(1)
+    @users = Item.page(params[:page])
   end
   def create
     # render plain: params.inspect
