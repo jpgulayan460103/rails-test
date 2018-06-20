@@ -1,0 +1,7 @@
+<% pagination = paginate @items, remote: true %>
+{
+    "result": {
+        "data": <%= @items.to_json.html_safe %>,
+        "pagination": "<%= pagination.squish %>"
+    }
+}

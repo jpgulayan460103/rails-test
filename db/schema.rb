@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180604061918) do
 
-  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
     t.string "category"
     t.string "subcategory"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180604061918) do
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false
