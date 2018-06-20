@@ -1,7 +1,7 @@
 <% pagination = paginate @items, remote: true %>
 {
     "result": {
-        "data": <%= @items.to_json.html_safe %>,
+        "data": <%= Oj.dump(ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}).as_json).html_safe %>,
         "pagination": "<%= pagination.squish %>"
     }
 }

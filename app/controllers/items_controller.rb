@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id]);
     respond_to do |format|
       format.html
-      format.json { render json: @item }
+      format.json { render json: @item.as_json }
     end
   end
   def create
@@ -27,13 +27,19 @@ class ItemsController < ApplicationController
   end
   def itemsList
     @items = Item.page(params[:page])
-    
-    # render :json => Item.all
+    # render plain: @items.to_json
+    # item = ItemSerializer.new()
+    # render :json => item
     #   render :json => {
     #     :result => Item.page(1).total_pages.inspect
     # }
+    # render partial: "itemsList", locals: {items: @items}
+    # render :json => @items
+    # render plain: Oj.dump(@items._json)
+    # render plain: @items.object.to_json
     respond_to do |format|
       format.html
+        # render :json => @items, each_serializer: ItemSerializer
       format.json do
         render partial: "itemsList", locals: {items: @items}
       end

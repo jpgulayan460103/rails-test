@@ -57,3 +57,7 @@ gem 'lodash-rails'
 gem 'momentjs-rails'
 gem 'kaminari'
 gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
+
+gem 'active_model_serializers'
+gem 'fast_jsonapi'
+gem 'oj'
