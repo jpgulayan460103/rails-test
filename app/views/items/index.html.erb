@@ -17,6 +17,7 @@
                     <th>SubCategory</th>
                     <th>SRP</th>
                     <th>DP</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="(index,item) in items" ng-cloak>
@@ -27,6 +28,7 @@
                         <td>{{ item.dealers_price }}</td>
                         <td>
                             <a href="javascript:void(0);" ng-click="editItem(item,index)">Edit</a>
+                            <a href="javascript:void(0);" ng-click="deleteItem(item,index)">Delete</a>
                         </td>
                     </tr>
                 </tbody>
@@ -43,7 +45,7 @@
                             </h1>
                         </td>
                     </tr>
-                    <tr ng-if="(items | isEmpty) && !loading" ng-cloak>
+                    <tr ng-if="(items | isEmpty) && loading" ng-cloak>
                         <th colspan="20"></th>
                     </tr>
                 </tfoot>
@@ -118,16 +120,16 @@
         $scope.formErrors = {};
         $scope.pagination = "";
         $scope.formType = "create";
+        $scope.selectedIndex = null;
 
         $(document).on('click', '.pagination li a', function (e) {
             e.preventDefault();
-            $scope.get_container_items(e.target.href);
-            // $scope.getCustomers();
+            $scope.getItems(e.target.href);
         });
 
-        $scope.get_container_items = function (url_string) {
+        $scope.getItems = function (url_string) {
             url_string = (typeof url_string !== 'undefined') && url_string !== "" ? url_string : "/items/list";
-            $scope.items = {};
+            $scope.items = [];
             $scope.loading = true;
             $scope.pagination = "";
             $http({
@@ -166,7 +168,8 @@
                 data: $.param({ formData: $scope.formData })
             }).then(function (response) {
                 $scope.submit = false;
-                $.notify('A Bidder has been added.');
+                $scope.items.unshift(response.data);
+                $.notify('An Item has been added.');
             }, function (rejection) {
                 if (rejection.status != 422) {
                     request_error(rejection.status);
@@ -186,7 +189,30 @@
                 data: $.param({ formData: $scope.formData })
             }).then(function (response) {
                 $scope.submit = false;
+                $scope.items[$scope.selectedIndex] = response.data;
+                $scope.formData = {};
+                $("#item-modal").modal('hide');
                 $.notify('A Bidder has been added.');
+            }, function (rejection) {
+                if (rejection.status != 422) {
+                    request_error(rejection.status);
+                } else if (rejection.status == 422) {
+                    var errors = rejection.data;
+                    $scope.formErrors = errors;
+                }
+                $scope.submit = false;
+            });
+        }
+        $scope.destroyItem = function() {
+            $scope.formErrors = {};
+            $scope.submit = true;
+            $http({
+                method: 'DELETE',
+                url: "/items/"+$scope.formData.id,
+            }).then(function (response) {
+                $scope.submit = false;
+                $scope.items.splice($scope.selectedIndex, 1);
+                $.notify('An Item has been deleted.');
             }, function (rejection) {
                 if (rejection.status != 422) {
                     request_error(rejection.status);
@@ -201,14 +227,20 @@
             $("#item-modal").modal('show');
             $scope.formData = {};
             $scope.formType = "create";
+            $scope.selectedIndex = null;
         }
         $scope.editItem = function(data,index) {
             angular.copy(data, $scope.formData);
             $("#item-modal").modal('show');
+            $scope.selectedIndex = index;
             $scope.formType = "update";
-            console.log($scope.formData);
         }
-        $scope.get_container_items();
+        $scope.deleteItem = function(data,index) {
+            angular.copy(data, $scope.formData);
+            $scope.selectedIndex = index;
+            $scope.destroyItem();
+        }
+        $scope.getItems();
     });
 </script>
 <% end %>

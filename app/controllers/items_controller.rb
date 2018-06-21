@@ -38,6 +38,11 @@ class ItemsController < ApplicationController
         render partial: "itemsList", locals: {items: @items}
       end
     end
+
+    def destroy
+      @items = Item.find(params[:id])
+      @items.destroy
+    end
     # render plain: paginate @users
   end
 
