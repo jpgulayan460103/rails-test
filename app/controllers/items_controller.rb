@@ -4,14 +4,10 @@ class ItemsController < ApplicationController
     @users = Item.page(params[:page])
   end
   def show
-    if params[:id].present?
-      @item = Item.find(params[:id]);
-      respond_to do |format|
-        format.html
-        format.json { render json: @item.as_json }
-      end
-    else
-      render action: "index"
+    @item = Item.find(params[:id]);
+    respond_to do |format|
+      format.html
+      format.json { render json: @item.as_json }
     end
   end
   def update
