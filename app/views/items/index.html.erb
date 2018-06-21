@@ -2,7 +2,7 @@
     <!-- <%= form_authenticity_token %> -->
     <div class="row">
         <div class="col-sm">
-            <button type="button" class="btn btn-primary" ng-click="itemForm()">
+            <button type="button" class="btn btn-primary" ng-click="addItem()">
                 Add Items
             </button>
         </div>
@@ -19,12 +19,15 @@
                     <th>DP</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in items" ng-cloak>
+                    <tr ng-repeat="(index,item) in items" ng-cloak>
                         <td>{{ item.name }}</td>
                         <td>{{ item.category }}</td>
                         <td>{{ item.subcategory }}</td>
                         <td>{{ item.retail_price }}</td>
                         <td>{{ item.dealers_price }}</td>
+                        <td>
+                            <a href="javascript:void(0);" ng-click="editItem(item,index)">Edit</a>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -48,129 +51,164 @@
             <div ng-bind-html="pagination" class="d-flex justify-content-center" ng-cloak></div>
         </div>
     </div>
-    <% end %>
-        <% content_for :modals do %>
+<% end %>
+<% content_for :modals do %>
 
-            <!-- The Modal -->
-            <div class="modal fade" id="item-modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+<!-- The Modal -->
+<div class="modal fade" id="item-modal">
+<div class="modal-dialog">
+<div class="modal-content">
 
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">ADD ITEMS</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
+    <!-- Modal Header -->
+    <div class="modal-header">
+        <h4 class="modal-title">ADD ITEMS</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
 
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form id="item-form" ng-submit="add_item()">
-                                <div class="form-group">
-                                    <label for="itemName">Item Name</label>
-                                    <input type="text" class="form-control" id="itemName" aria-describedby="itemName" placeholder="Enter item name" ng-model="formData.itemName">
-                                    <small id="itemName" class="form-text text-muted"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="category">Item Category</label>
-                                    <input type="text" class="form-control" id="category" aria-describedby="category" placeholder="Enter item category" ng-model="formData.category">
-                                    <small id="category" class="form-text text-muted"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="subcategory">Item Subcategory</label>
-                                    <input type="text" class="form-control" id="subcategory" aria-describedby="subcategory" placeholder="Enter item subcategory"
-                                        ng-model="formData.subcategory">
-                                    <small id="subcategory" class="form-text text-muted"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="retailPrice">Suggested Retail Price</label>
-                                    <input type="number" step="0.01" class="form-control" id="retailPrice" aria-describedby="retailPrice" placeholder="Enter suggested retail price"
-                                        ng-model="formData.retailPrice">
-                                    <small id="retailPrice" class="form-text text-muted"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dealersPrice">Dealers Price</label>
-                                    <input type="number" step="0.01" class="form-control" id="dealersPrice" aria-describedby="dealersPrice" placeholder="Enter dealers price"
-                                        ng-model="formData.dealersPrice">
-                                    <small id="dealersPrice" class="form-text text-muted"></small>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" form="item-form">Submit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-
-                    </div>
-                </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+        <form id="item-form" ng-submit="submitItemForm()">
+            <div class="form-group">
+                <label for="name">Item Name</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Enter item name" ng-model="formData.name">
+                <small id="itemName" class="form-text text-muted"></small>
             </div>
-            <% end %>
-                <% content_for :js do %>
-                    <script>
-                        app.controller('mainController', function ($scope, $http, $sce, $window) {
-                            $scope.firstName = moment().format();
-                            $scope.lastName = "Doe";
-                            $scope.formData = {};
-                            $scope.formErrors = {};
-                            $scope.pagination = "";
+            <div class="form-group">
+                <label for="category">Item Category</label>
+                <input type="text" class="form-control" id="category" aria-describedby="category" placeholder="Enter item category" ng-model="formData.category">
+                <small id="category" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="subcategory">Item Subcategory</label>
+                <input type="text" class="form-control" id="subcategory" aria-describedby="subcategory" placeholder="Enter item subcategory"
+                    ng-model="formData.subcategory">
+                <small id="subcategory" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="retail_price">Suggested Retail Price</label>
+                <input type="number" step="0.01" class="form-control" id="retail_price" aria-describedby="retail_price" placeholder="Enter suggested retail price"
+                    ng-model="formData.retail_price">
+                <small id="retail_price" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="dealers_price">Dealers Price</label>
+                <input type="number" step="0.01" class="form-control" id="dealers_price" aria-describedby="dealers_price" placeholder="Enter dealers price"
+                    ng-model="formData.dealers_price">
+                <small id="dealers_price" class="form-text text-muted"></small>
+            </div>
+        </form>
+    </div>
 
-                            $(document).on('click', '.pagination li a', function (e) {
-                                e.preventDefault();
-                                get_container_items(e.target.href);
-                                // $scope.getCustomers();
-                            });
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" form="item-form">Submit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
 
-                            $scope.itemForm = function () {
-                                $("#item-modal").modal('show');
-                                $scope.formData = {};
-                            }
+</div>
+</div>
+</div>
+<% end %>
+<% content_for :js do %>
+<script>
+    app.controller('mainController', function ($scope, $http, $sce, $window) {
+        $scope.firstName = moment().format();
+        $scope.lastName = "Doe";
+        $scope.formData = {};
+        $scope.formErrors = {};
+        $scope.pagination = "";
+        $scope.formType = "create";
+
+        $(document).on('click', '.pagination li a', function (e) {
+            e.preventDefault();
+            $scope.get_container_items(e.target.href);
+            // $scope.getCustomers();
+        });
+
+        $scope.get_container_items = function (url_string) {
+            url_string = (typeof url_string !== 'undefined') && url_string !== "" ? url_string : "/items/list";
+            $scope.items = {};
+            $scope.loading = true;
+            $scope.pagination = "";
+            $http({
+                method: "GET",
+                url: url_string,
+            }).then(function mySuccess(response) {
+                $scope.loading = false;
+                $scope.items = response.data.result.data;
+                $scope.pagination = $('<textarea />').html(response.data.result.pagination).text();
+            }, function (rejection) {
+                console.log(rejection);
+                $scope.loading = false;
+                if (rejection.status != 422) {
+                    request_error(rejection.status);
+                } else if (rejection.status == 422) {
+                    console.log(rejection.statusText);
+                }
+            });
+        }
 
 
-                            $scope.add_item = function () {
-                                $scope.formErrors = {};
-                                $scope.submit = true;
-                                $http({
-                                    method: 'POST',
-                                    url: "/items",
-                                    data: $.param({ formData: $scope.formData })
-                                }).then(function (response) {
-                                    $scope.submit = false;
-                                    $.notify('A Bidder has been added.');
-                                }, function (rejection) {
-                                    if (rejection.status != 422) {
-                                        request_error(rejection.status);
-                                    } else if (rejection.status == 422) {
-                                        var errors = rejection.data;
-                                        $scope.formErrors = errors;
-                                    }
-                                    $scope.submit = false;
-                                });
-                            }
-                            get_container_items();
-                            function get_container_items(url_string) {
-                                url_string = (typeof url_string !== 'undefined') && url_string !== "" ? url_string : "/items/list";
-                                $scope.items = {};
-                                $scope.loading = true;
-                                $scope.pagination = "";
-                                $http({
-                                    method: "GET",
-                                    url: url_string,
-                                }).then(function mySuccess(response) {
-                                    $scope.loading = false;
-                                    $scope.items = response.data.result.data;
-                                    $scope.pagination = $('<textarea />').html(response.data.result.pagination).text();
-                                }, function (rejection) {
-                                    console.log(rejection);
-                                    $scope.loading = false;
-                                    if (rejection.status != 422) {
-                                        request_error(rejection.status);
-                                    } else if (rejection.status == 422) {
-                                        console.log(rejection.statusText);
-                                    }
-                                });
+        $scope.submitItemForm = function () {
+            if($scope.formType == 'update'){
+                $scope.updateItem();
+            }else{
+                $scope.createItem();
+            }
+        }
 
-                            }
-                        });
-                    </script>
-                    <% end %>
+        $scope.createItem = function() {
+            $scope.formErrors = {};
+            $scope.submit = true;
+            $http({
+                method: 'POST',
+                url: "/items",
+                data: $.param({ formData: $scope.formData })
+            }).then(function (response) {
+                $scope.submit = false;
+                $.notify('A Bidder has been added.');
+            }, function (rejection) {
+                if (rejection.status != 422) {
+                    request_error(rejection.status);
+                } else if (rejection.status == 422) {
+                    var errors = rejection.data;
+                    $scope.formErrors = errors;
+                }
+                $scope.submit = false;
+            });
+        }
+        $scope.updateItem = function() {
+            $scope.formErrors = {};
+            $scope.submit = true;
+            $http({
+                method: 'PUT',
+                url: "/items/"+$scope.formData.id,
+                data: $.param({ formData: $scope.formData })
+            }).then(function (response) {
+                $scope.submit = false;
+                $.notify('A Bidder has been added.');
+            }, function (rejection) {
+                if (rejection.status != 422) {
+                    request_error(rejection.status);
+                } else if (rejection.status == 422) {
+                    var errors = rejection.data;
+                    $scope.formErrors = errors;
+                }
+                $scope.submit = false;
+            });
+        }
+        $scope.addItem = function () {
+            $("#item-modal").modal('show');
+            $scope.formData = {};
+            $scope.formType = "create";
+        }
+        $scope.editItem = function(data,index) {
+            angular.copy(data, $scope.formData);
+            $("#item-modal").modal('show');
+            $scope.formType = "update";
+            console.log($scope.formData);
+        }
+        $scope.get_container_items();
+    });
+</script>
+<% end %>

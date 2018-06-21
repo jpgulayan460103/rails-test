@@ -4,39 +4,37 @@ class ItemsController < ApplicationController
     @users = Item.page(params[:page])
   end
   def show
-    @item = Item.find(params[:id]);
+    if params[:id].present?
+      @item = Item.find(params[:id]);
+      respond_to do |format|
+        format.html
+        format.json { render json: @item.as_json }
+      end
+    else
+      render action: "index"
+    end
+  end
+  def update
+    @item = Item.find_by_id(params[:id])
+    @item.update(permittedParams)
     respond_to do |format|
       format.html
-      format.json { render json: @item.as_json }
+      format.json do
+        saveItem @item
+      end
     end
   end
   def create
-    # render plain: params.inspect
-    # render :json => params
-    newitems = {
-      name: params[:formData][:itemName],
-      category: params[:formData][:category],
-      subcategory: params[:formData][:subcategory],
-      retail_price: params[:formData][:retailPrice],
-      dealers_price: params[:formData][:dealersPrice],
-    }
-    @item = Item.new(newitems)
-    
-    @item.save
-    render :json => @item
+    @item = Item.new(permittedParams)
+    respond_to do |format|
+      format.html
+      format.json do
+        saveItem @item
+      end
+    end
   end
   def itemsList
     @items = Item.page(params[:page])
-    # render plain: @items.to_json
-    # item = ItemSerializer.new()
-    # render :json => item
-    #   render :json => {
-    #     :result => Item.page(1).total_pages.inspect
-    # }
-    # render partial: "itemsList", locals: {items: @items}
-    # render :json => @items
-    # render plain: Oj.dump(@items._json)
-    # render plain: @items.object.to_json
     respond_to do |format|
       format.html
         # render :json => @items, each_serializer: ItemSerializer
@@ -45,5 +43,17 @@ class ItemsController < ApplicationController
       end
     end
     # render plain: paginate @users
+  end
+
+  private
+  def permittedParams
+    params[:formData].present? ? params[:formData].permit(:name, :category, :dealers_price, :retail_price, :subcategory, :unit_of_measure, :id) : false
+  end
+  def saveItem (item)
+    if item.save
+      render json: item
+    else
+      render json: { message: "Validation failed", errors: item.errors }, status: 422
+    end
   end
 end
