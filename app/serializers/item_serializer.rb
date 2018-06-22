@@ -1,5 +1,5 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes "id", "name", "category", "subcategory", "code", "unit_of_measure"
+  attributes "id", "name", "category", "subcategory", "code", "unit_of_measure", "remaining_quantity"
   attribute "retail_price" do |object|
     object.object.retail_price.to_f
   end

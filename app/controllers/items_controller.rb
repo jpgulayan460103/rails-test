@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id]);
     respond_to do |format|
-      format.html
+      format.html { render json: @item }
       format.json { render json: @item.as_json }
     end
   end

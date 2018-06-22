@@ -12,23 +12,23 @@
         <div class="col-sm">
             <table class="table table-bordered">
                 <thead>
-                    <th>Item Name</th>
-                    <th>Category</th>
-                    <th>SubCategory</th>
-                    <th>SRP</th>
-                    <th>DP</th>
-                    <th></th>
+                    <th style="text-align: center">Item Name</th>
+                    <th style="text-align: center">Category</th>
+                    <th style="text-align: center">Subcategory</th>
+                    <th style="text-align: center">SRP</th>
+                    <th style="text-align: center">DP</th>
+                    <th style="text-align: center"></th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="(index,item) in items" ng-cloak>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.category }}</td>
-                        <td>{{ item.subcategory }}</td>
-                        <td>{{ item.retail_price }}</td>
-                        <td>{{ item.dealers_price }}</td>
-                        <td>
-                            <a href="javascript:void(0);" ng-click="editItem(item,index)">Edit</a>
-                            <a href="javascript:void(0);" ng-click="deleteItem(item,index)">Delete</a>
+                        <td style="text-align: center">{{ item.name }}</td>
+                        <td style="text-align: center">{{ item.category }}</td>
+                        <td style="text-align: center">{{ item.subcategory }}</td>
+                        <td style="text-align: center">{{ item.retail_price|currency:"" }}</td>
+                        <td style="text-align: center">{{ item.dealers_price|currency:"" }}</td>
+                        <td style="text-align: center">
+                            <a href="javascript:void(0);" ng-click="editItem(item,index)" class="btn btn-primary">Edit</a>
+                            <a href="javascript:void(0);" ng-click="deleteItem(item,index)" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
