@@ -35,7 +35,8 @@ class ItemsController < ApplicationController
       :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}),
       :pagination => {
         :total_rows => @items.total_pages,
-        :per_page => @items.limit_value
+        :per_page => @items.limit_value,
+        :current_page => params[:page].to_i,
       }
     }
     respond_to do |format|

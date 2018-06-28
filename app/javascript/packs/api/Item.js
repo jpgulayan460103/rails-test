@@ -21,7 +21,9 @@ export default {
     },
 
     getList(formData) {
-        return axios.get('items/list');
+        return axios.get('items/list', {
+            params: formData,
+        });
     },
 
     paginate(page, count) {
