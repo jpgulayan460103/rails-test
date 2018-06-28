@@ -23,7 +23,7 @@
                 </tr>
             </tbody>
             <tfoot>
-                <tr v-if="items">
+                <tr v-if="!items">
                     <td colspan="20" style="text-align: center;">
                         <h1 v-if="loading">
                             <img src="/images/loading.gif" style="height: 70px;">
@@ -35,7 +35,7 @@
                         </h1>
                     </td>
                 </tr>
-                <tr v-if="(items.length=0) && loading">
+                <tr v-if="!items && loading">
                     <th colspan="20"></th>
                 </tr>
             </tfoot>
@@ -46,21 +46,33 @@
 <script>
 export default {
     created(){
-        // this.editItem();
+        this.getItemList();
     },
     data(){
         return {
             items: {},
             loading: true,
+            currentPage: 1,
         }
     },
     methods: {
         editItem(){
-            // return axios.get('items/list');
         },
         deleteItem(){
-
+            
         },
+        getItemList(){
+            this.$API.Item.getList()
+            .then(res => {
+                this.items = res.data.results
+            })
+            .catch(err => {
+
+            })
+            .then(() => {
+
+            });
+        }
     }
 }
 </script>

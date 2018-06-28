@@ -8,8 +8,20 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue/dist/vue.common.js'
+import BootstrapVue from 'bootstrap-vue'
 import App from './components/items/table.vue'
 import axios from 'axios'
+
+import Api from './api/api.main.js'
+
+
+Vue.prototype.$API = Api;
+
+
+Vue.use(BootstrapVue);
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
@@ -20,7 +32,6 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-axios.get('items/list');
 
 import './components/components.main.js'
 

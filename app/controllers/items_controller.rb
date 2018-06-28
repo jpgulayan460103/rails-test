@@ -31,9 +31,13 @@ class ItemsController < ApplicationController
   end
   def itemsList
     @items = Item.page(params[:page])
-    results = [
+    results = {
       :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}),
-    ]
+      :pagination => {
+        :total_rows => @items.total_pages,
+        :per_page => @items.limit_value
+      }
+    }
     respond_to do |format|
       format.html
       format.json do

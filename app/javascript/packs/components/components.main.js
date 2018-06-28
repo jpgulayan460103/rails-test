@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue.common.js'
 
-import ItemsTable from './items/table.vue'
+import ItemsList from './items/list.vue'
 
-Vue.component('items-table', ItemsTable);
+Vue.component('item-list', ItemsList);
