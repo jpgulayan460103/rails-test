@@ -45,9 +45,9 @@
         <br>
         <%= yield :contents %>
       </div>
+      <%= yield :modals %>
     </div>
-    <%= yield :modals %>
-    <%= yield :js %>
     <%= javascript_pack_tag 'application' %>
+    <%= yield :js %>
   </body>
 </html>

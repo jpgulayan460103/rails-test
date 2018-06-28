@@ -7,6 +7,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+require('./bootstrap.js');
 import Vue from 'vue/dist/vue.js'
 import BootstrapVue from 'bootstrap-vue'
 import App from './components/items/table.vue'
@@ -14,6 +15,9 @@ import axios from 'axios'
 import EventDispatcher from './service/EventDispatcher'
 
 import Api from './api/api.main.js'
+import './notify.js'
+
+
 
 
 Vue.prototype.$API = Api;
@@ -23,6 +27,7 @@ Vue.use(BootstrapVue);
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');

@@ -1,6 +1,20 @@
 <template>
     <div>
-        <item-table></item-table>
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary" @click="openItemFormModal">
+                    Add Items
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+                <item-table></item-table>
+            </div>
+        </div>
+        <item-form-modal></item-form-modal>
+        
     </div>
 </template>
 
@@ -17,6 +31,14 @@ export default {
     data(){
         return {
             items: {},
+        }
+    },
+    methods: {
+        openItemFormModal(){
+            let data = {
+                formType: "create"
+            }
+            this.$EventDispatcher.fire('OPEN_ITEM_FORM_MODAL', data);
         }
     }
 }
