@@ -48,6 +48,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (8.6.0)
       execjs
+    axios_rails (0.14.0)
     bindex (0.5.0)
     bootstrap (4.1.1)
       autoprefixer-rails (>= 6.0.3)
@@ -125,6 +126,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.2-x86-mingw32)
       mini_portile2 (~> 2.3.0)
+    oj (3.6.2)
     paranoia (2.4.1)
       activerecord (>= 4.0, < 5.3)
     popper_js (1.12.9)
@@ -217,6 +219,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  axios_rails
   bootstrap (~> 4.1.1)
   byebug
   capybara (~> 2.13)
@@ -229,6 +232,7 @@ DEPENDENCIES
   momentjs-rails
   mysql2 (~> 0.3.18)
   net_http_ssl_fix
+  oj
   paranoia (~> 2.2)
   puma (~> 3.7)
   rails (~> 5.1.3)

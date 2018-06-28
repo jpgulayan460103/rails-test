@@ -60,3 +60,6 @@ gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
 gem 'active_model_serializers'
 gem 'webpacker'
 gem 'foreman'
+gem 'oj'
+
+gem 'axios_rails'

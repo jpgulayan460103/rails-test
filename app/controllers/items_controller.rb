@@ -31,11 +31,13 @@ class ItemsController < ApplicationController
   end
   def itemsList
     @items = Item.page(params[:page])
+    results = [
+      :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}),
+    ]
     respond_to do |format|
       format.html
-        # render :json => @items, each_serializer: ItemSerializer
       format.json do
-        render partial: "itemsList", locals: {items: @items}
+        render :json => results.to_json
       end
     end
 

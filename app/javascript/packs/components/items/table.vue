@@ -45,6 +45,9 @@
 
 <script>
 export default {
+    created(){
+        // this.editItem();
+    },
     data(){
         return {
             items: {},
@@ -53,7 +56,7 @@ export default {
     },
     methods: {
         editItem(){
-
+            // return axios.get('items/list');
         },
         deleteItem(){
 
