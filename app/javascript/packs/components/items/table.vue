@@ -65,6 +65,7 @@ export default {
             this.$API.Item.getList()
             .then(res => {
                 this.items = res.data.results
+                this.$EventDispatcher.fire('FORM_VALIDATION', {});
             })
             .catch(err => {
 

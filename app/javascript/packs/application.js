@@ -7,16 +7,17 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import Vue from 'vue/dist/vue.common.js'
+import Vue from 'vue/dist/vue.js'
 import BootstrapVue from 'bootstrap-vue'
 import App from './components/items/table.vue'
 import axios from 'axios'
+import EventDispatcher from './service/EventDispatcher'
 
 import Api from './api/api.main.js'
 
 
 Vue.prototype.$API = Api;
-
+Vue.prototype.$EventDispatcher = new EventDispatcher();
 
 Vue.use(BootstrapVue);
 
