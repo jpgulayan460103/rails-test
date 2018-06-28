@@ -51,7 +51,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'mysql2', '~> 0.3.18'
 gem "paranoia", "~> 2.2"
 gem 'bootstrap', '~> 4.1.1'
-gem 'angularjs-rails', '~> 1.5', '>= 1.5.6'
 gem 'jquery-rails'
 gem 'lodash-rails'
 gem 'momentjs-rails'
@@ -59,5 +58,5 @@ gem 'kaminari'
 gem 'net_http_ssl_fix', require: 'net_http_ssl_fix'
 
 gem 'active_model_serializers'
-gem 'fast_jsonapi'
-gem 'oj'
+gem 'webpacker'
+gem 'foreman'

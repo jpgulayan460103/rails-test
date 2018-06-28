@@ -45,7 +45,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    angularjs-rails (1.6.8)
     arel (8.0.0)
     autoprefixer-rails (8.6.0)
       execjs
@@ -76,11 +75,13 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    dotenv (0.7.0)
     erubi (1.7.1)
     execjs (2.7.0)
-    fast_jsonapi (1.2)
-      activesupport (>= 4.2)
     ffi (1.9.23-x86-mingw32)
+    foreman (0.64.0)
+      dotenv (~> 0.7.0)
+      thor (>= 0.13.6)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
@@ -124,13 +125,14 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.2-x86-mingw32)
       mini_portile2 (~> 2.3.0)
-    oj (3.6.2)
     paranoia (2.4.1)
       activerecord (>= 4.0, < 5.3)
     popper_js (1.12.9)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
+    rack-proxy (0.6.4)
+      rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.6)
@@ -200,6 +202,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.5.3)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -211,12 +217,11 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  angularjs-rails (~> 1.5, >= 1.5.6)
   bootstrap (~> 4.1.1)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  fast_jsonapi
+  foreman
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
@@ -224,7 +229,6 @@ DEPENDENCIES
   momentjs-rails
   mysql2 (~> 0.3.18)
   net_http_ssl_fix
-  oj
   paranoia (~> 2.2)
   puma (~> 3.7)
   rails (~> 5.1.3)
@@ -235,6 +239,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webpacker
 
 BUNDLED WITH
    1.16.2
