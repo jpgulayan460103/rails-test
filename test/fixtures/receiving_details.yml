@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  receiving: one
+  item: one
+  cost_price: 9.99
+  quantity: 1
+
+two:
+  receiving: two
+  item: two
+  cost_price: 9.99
+  quantity: 1
