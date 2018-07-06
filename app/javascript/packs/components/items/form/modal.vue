@@ -70,7 +70,7 @@ export default {
                 this.itemFormModal = true;
             }
         });
-        $.notify('Success: The account category has been deleted');
+        // $.notify('Success: The account category has been deleted');
     },
     data(){
         return {

@@ -1,10 +1,13 @@
 class ItemsController < ApplicationController
+  include AuthenticationControllerHelper
+  before_action :authenticateUsers
   def index
     @title = 'Items'
     @users = Item.page(params[:page])
+    # puts session[:user]
   end
   def show
-    @item = Item.find(params[:id]);
+    @item = Item.find_by_id(params[:id]);
     respond_to do |format|
       format.html { render json: @item }
       format.json { render json: @item.as_json }

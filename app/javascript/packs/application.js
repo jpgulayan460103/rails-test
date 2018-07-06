@@ -10,7 +10,6 @@
 require('./bootstrap.js');
 import Vue from 'vue/dist/vue.js'
 import BootstrapVue from 'bootstrap-vue'
-import App from './components/items/table.vue'
 import axios from 'axios'
 import EventDispatcher from './service/EventDispatcher'
 

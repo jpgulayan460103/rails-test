@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   get 'items/list', to: 'items#itemsList'
+  get 'login', to: 'authentication#login'
+  get 'logout', to: 'authentication#logout'
+  post 'login', to: 'authentication#authenticate'
   root 'items#index'
   resources :items
 
