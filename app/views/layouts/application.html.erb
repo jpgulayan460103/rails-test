@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>
-      <%= yield :title %>
+     POS - <%= yield :title %>
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,12 +35,12 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <% if session[:username].present? %>
-                  <% end %>
-                <% session[:username].inspect %>asdasdasd
+                <% end %>
+                <%= session[:username] %>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
               </div>
             </li>
           </ul>
