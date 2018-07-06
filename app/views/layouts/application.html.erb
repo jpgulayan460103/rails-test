@@ -8,7 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    
+    <style>
+    .ml-auto .dropdown-menu {
+      left: auto !important;
+      right: 0px;
+    }
+    </style>
     
   </head>
   
@@ -30,14 +35,12 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <% if session[:username].present? %>
-                <% end %>
+                  <% end %>
                 <% session[:username].inspect %>asdasdasd
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Logout</a>
               </div>
             </li>
           </ul>
@@ -49,6 +52,7 @@
       </div>
       <%= yield :modals %>
     </div>
+    <%= javascript_include_tag :application %>
     <%= javascript_pack_tag 'application' %>
     <%= yield :js %>
   </body>

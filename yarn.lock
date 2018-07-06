@@ -916,6 +916,13 @@ bootstrap-vue@^2.0.0-rc.11:
     popper.js "^1.12.9"
     vue-functional-data-merge "^2.0.5"
 
+bootstrap@4.0.0-alpha.6:
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz#4f54dd33ac0deac3b28407bc2df7ec608869c9c8"
+  dependencies:
+    jquery ">=1.9.1"
+    tether "^1.4.0"
+
 bootstrap@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.1.tgz#3aec85000fa619085da8d2e4983dfd67cf2114cb"
@@ -3112,7 +3119,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jquery@^3.3.1:
+jquery@>=1.9.1, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
@@ -5679,6 +5686,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
+tether@^1.4.0:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
+
 through2@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -6011,6 +6022,10 @@ vue-template-compiler@^2.5.16:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue2-filters@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.3.0.tgz#3d6b71169fb14b32a2ddbfa45f94d9a0fdee1094"
 
 vue@^2.5.16:
   version "2.5.16"

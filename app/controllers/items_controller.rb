@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
     end
   end
   def itemsList
-    @items = Item.page(params[:page])
+    @items = Item.order(name: :asc).page(params[:page])
     results = {
       :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}),
       :pagination => {

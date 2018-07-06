@@ -7,8 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-require('./bootstrap.js');
 import Vue from 'vue/dist/vue.js'
+import Vue2Filters from 'vue2-filters'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import EventDispatcher from './service/EventDispatcher'
@@ -17,12 +17,11 @@ import Api from './api/api.main.js'
 import './notify.js'
 
 
-
-
 Vue.prototype.$API = Api;
 Vue.prototype.$EventDispatcher = new EventDispatcher();
 
 Vue.use(BootstrapVue);
+Vue.use(Vue2Filters)
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -40,9 +39,44 @@ if (token) {
 
 import './components/components.main.js'
 
-// Vue.component('items-table', require('./components/items/table.vue'));
-// Vue.component('items-table', App);
+
 
 const app = new Vue({
     el: '#myApp',
 })
+
+
+$.notify.defaults(
+
+    {
+        // whether to hide the notification on click
+        clickToHide: true,
+        // whether to auto-hide the notification
+        autoHide: true,
+        // if autoHide, hide after milliseconds
+        autoHideDelay: 5000,
+        // show the arrow pointing at the element
+        arrowShow: true,
+        // arrow size in pixels
+        arrowSize: 5,
+        // position defines the notification position though uses the defaults below
+        position: 'bottom left',
+        // default positions
+        elementPosition: 'top right',
+        globalPosition: 'top right',
+        // default style
+        style: 'bootstrap',
+        // default class (string or [string])
+        className: 'success',
+        // show animation
+        showAnimation: 'slideDown',
+        // show animation duration
+        showDuration: 400,
+        // hide animation
+        hideAnimation: 'slideUp',
+        // hide animation duration
+        hideDuration: 200,
+        // padding between element and notification
+        gap: 2
+    }
+);
