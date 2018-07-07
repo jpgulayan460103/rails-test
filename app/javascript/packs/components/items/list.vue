@@ -2,9 +2,7 @@
     <div>
         <div class="row">
             <div class="col-sm">
-                <button type="button" class="btn btn-primary" @click="openItemFormModal">
-                    Add Items
-                </button>
+                <el-button type="danger" @click="openItemFormModal" icon="el-icon-plus" circle  data-balloon="Add Items" data-balloon-pos="right"></el-button>
             </div>
         </div>
         <br>

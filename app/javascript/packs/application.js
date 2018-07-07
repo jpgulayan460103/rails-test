@@ -8,8 +8,9 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue/dist/vue.js'
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/en'
 import Vue2Filters from 'vue2-filters'
-import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import EventDispatcher from './service/EventDispatcher'
 
@@ -17,14 +18,15 @@ import Api from './api/api.main.js'
 import './notify.js'
 
 
+
+
+
 Vue.prototype.$API = Api;
 Vue.prototype.$EventDispatcher = new EventDispatcher();
 
-Vue.use(BootstrapVue);
 Vue.use(Vue2Filters)
+Vue.use(ElementUI, { locale });
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

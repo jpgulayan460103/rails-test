@@ -1,48 +1,31 @@
 <template>
     <div>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <th style="text-align: center">Item Name</th>
-                    <th style="text-align: center">Category</th>
-                    <th style="text-align: center">Subcategory</th>
-                    <th style="text-align: center">SRP</th>
-                    <th style="text-align: center">DP</th>
-                    <th style="text-align: center"></th>
-                </thead>
-                <tbody v-if="items.length != 0 && !loading">
-                    <tr v-for="(item,index) in items">
-                        <td style="text-align: center">{{ item.name }}</td>
-                        <td style="text-align: center">{{ item.category }}</td>
-                        <td style="text-align: center">{{ item.subcategory }}</td>
-                        <td style="text-align: center">{{ item.retail_price | currency("",2) }}</td>
-                        <td style="text-align: center">{{ item.dealers_price | currency("",2) }}</td>
-                        <td style="text-align: center">
-                            <a href="javascript:void(0);" @click="editItem(item,index)" class="btn btn-primary">Edit</a>
-                            <a href="javascript:void(0);" @click="deleteItem(item,index)" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr v-if="loading">
-                        <td colspan="20" style="text-align: center;">
-                            <h1 v-if="loading">
-                                <img src="/images/loading.gif" style="height: 70px;">
-                                <br> LOADING
-                            </h1>
-                        </td>
-                    </tr>
-                    <tr v-if="items.length == 0 && !loading">
-                        <td colspan="20" style="text-align: center;">
-                            <h1>
-                                <span>NO DATA</span>
-                            </h1>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            <b-pagination :total-rows="pagination.total_rows" :per-page="pagination.per_page" v-model="pagination.current_page" @change="handlePaginationChange" v-if="!loading && items.length != 0"></b-pagination>
-        </div>
+        <el-table :data="items" style="width: 100%" height="70vh" v-loading="loading" element-loading-text="Loading..." element-loading-spinner="el-icon-loading">
+            <el-table-column fixed prop="name" label="Item Name" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column prop="category" label="Category" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column prop="subcategory" label="Subcategory" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column label="Retail Price" min-width="120" align="center">
+                <template slot-scope="scope">
+                    <span> {{ scope.row.retail_price | currency("",2) }} </span>
+                </template>
+            </el-table-column>
+            <el-table-column label="Dealers Price" min-width="150" align="center">
+                <template slot-scope="scope">
+                    <span> {{ scope.row.dealers_price | currency("",2) }} </span>
+                </template>
+            </el-table-column>
+            <el-table-column label="Operations" min-width="200" align="center">
+                <template slot-scope="scope">
+                    <el-button-group>
+                        <el-button size="mini" @click="handleEdit(scope.row,scope.$index)">Edit</el-button>
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.row,scope.$index)">Delete</el-button>
+                    </el-button-group>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination @current-change="handlePaginationChange" :current-page.sync="pagination.current_page" :page-size="pagination.per_page"
+            layout="prev, pager, next, jumper" :total="pagination.total_rows">
+        </el-pagination>
     </div>
 </template>
 
@@ -64,18 +47,18 @@ export default {
             pagination: {},
             current_page: 1,
             selectedItemIndex: null,
-            deleting: false
+            deleting: false,
         }
     },
     methods: {
-        editItem(data){
+        handleEdit(data){
             data = {
                 formType: "update",
                 formData: data
             }
             this.$EventDispatcher.fire('OPEN_ITEM_FORM_MODAL', data);
         },
-        deleteItem(data, index){
+        handleDelete(data, index){
             if(confirm("Are you sure you want to delete "+data.name+" in the list?")){
                 this.loading = true;
                 this.$API.Item.delete(data)
