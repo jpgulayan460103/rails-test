@@ -51,7 +51,7 @@ export default {
     created(){
         this.getItemList();
         this.$EventDispatcher.listen('ITEM_CREATED', (data) => {
-            this.items.unshift(data);
+            this.getItemList();
         });
         this.$EventDispatcher.listen('ITEM_UPDATED', (data) => {
             this.getItemList();
@@ -76,7 +76,7 @@ export default {
             this.$EventDispatcher.fire('OPEN_ITEM_FORM_MODAL', data);
         },
         deleteItem(data, index){
-            if(confirm("Are you sure you want to delete item "+data.name+" in the list?")){
+            if(confirm("Are you sure you want to delete "+data.name+" in the list?")){
                 this.loading = true;
                 this.$API.Item.delete(data)
                 .then(res => {
