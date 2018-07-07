@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
     @user = User.all()
-    render :json => @user, include: "receiving.receiving_detail.item,receiving.user"
+    render :json => @user, include: "receiving.receiving_detail.item"
   end
 end

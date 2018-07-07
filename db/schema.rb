@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706090847) do
+ActiveRecord::Schema.define(version: 20180707050308) do
+
+  create_table "item_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "quantity"
+    t.decimal "cost_price", precision: 15, scale: 2
+    t.bigint "item_id"
+    t.bigint "receiving_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_item_details_on_deleted_at"
+    t.index ["item_id"], name: "index_item_details_on_item_id"
+    t.index ["receiving_id"], name: "index_item_details_on_receiving_id"
+  end
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -69,6 +82,8 @@ ActiveRecord::Schema.define(version: 20180706090847) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "item_details", "items", on_delete: :cascade
+  add_foreign_key "item_details", "receivings"
   add_foreign_key "purchase_orders", "users"
   add_foreign_key "receiving_details", "items"
   add_foreign_key "receiving_details", "receivings", on_delete: :cascade

@@ -3,15 +3,15 @@ class ItemsController < ApplicationController
   before_action :authenticateUsers
   def index
     @title = 'Items'
-    @users = Item.page(params[:page])
     # puts session[:user]
   end
   def show
     @item = Item.find_by_id(params[:id]);
-    respond_to do |format|
-      format.html { render json: @item }
-      format.json { render json: @item.as_json }
-    end
+    render json: @item
+    # respond_to do |format|
+    #   format.html { render json: @item }
+    #   format.json { render json: @item }
+    # end
   end
   def update
     @item = Item.find_by_id(params[:id])
@@ -35,7 +35,7 @@ class ItemsController < ApplicationController
   def itemsList
     @items = Item.order(name: :asc).page(params[:page])
     results = {
-      :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer}),
+      :results => results = ActiveModelSerializers::SerializableResource.new(@items, {each_serializer: ItemSerializer, include: ""}),
       :pagination => {
         :total_rows => @items.total_pages,
         :per_page => @items.limit_value,
