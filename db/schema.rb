@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 20180706090847) do
     t.bigint "item_id"
     t.decimal "cost_price", precision: 15, scale: 2
     t.integer "quantity"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_receiving_details_on_deleted_at"
     t.index ["item_id"], name: "index_receiving_details_on_item_id"
     t.index ["receiving_id"], name: "index_receiving_details_on_receiving_id"
   end
@@ -48,13 +50,17 @@ ActiveRecord::Schema.define(version: 20180706090847) do
   create_table "receivings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "purchase_order_id"
     t.bigint "user_id"
+    t.text "comment"
+    t.datetime "deleted_at"
+    t.text "deleted_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_receivings_on_deleted_at"
     t.index ["purchase_order_id"], name: "index_receivings_on_purchase_order_id"
     t.index ["user_id"], name: "index_receivings_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false

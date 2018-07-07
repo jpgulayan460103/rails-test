@@ -11,7 +11,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="item-form" @submit="itemFormSubmit">
+                        <form id="item-form" @submit.prevent="itemFormSubmit">
                             <div class="form-group">
                                 <label for="name">Item Name</label>
                                 <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Enter item name" v-model="formData.name">
