@@ -16,6 +16,8 @@ import EventDispatcher from './service/EventDispatcher'
 
 import Api from './api/api.main.js'
 import './notify.js'
+import './components/components.main.js'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 
 
@@ -38,14 +40,37 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-
-import './components/components.main.js'
-
-
-
 const app = new Vue({
     el: '#myApp',
-})
+});
+
+// Add a response interceptor
+axios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if (error.response.status == 401) {
+        app.$alert('Opss! Your session may have been expired. Please login.', 'UNAUTHENTICATED', {
+            confirmButtonText: 'OK',
+            callback: action => {
+                location.reload()
+            }
+        });
+    } else if (error.response.status == 403) {
+        app.$alert('Opss! You are not authorize', 'FORBIDDEN', {
+            confirmButtonText: 'OK',
+            callback: action => {
+            }
+        });
+    } else if (error.response.status >= 500) {
+        app.$alert('Opss! Something went wrong. Please report this to your technical support', 'SERVER ERROR', {
+            confirmButtonText: 'OK',
+            callback: action => {
+            }
+        });
+    }
+    return Promise.reject(error);
+});
+
 
 
 $.notify.defaults(

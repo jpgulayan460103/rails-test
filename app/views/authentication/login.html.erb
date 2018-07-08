@@ -1,23 +1,58 @@
+<% content_for :title do %>
+    LOGIN
+<% end %>
+<% content_for :js do %>
+    <script>
+        $('#show-password').change(function() {
+            if (document.getElementById('show-password').checked) {
+                $('#password').clone().attr('type', 'text').insertAfter('#password').prev().remove();
+            } else {
+                $('#password').clone().attr('type', 'password').insertAfter('#password').prev().remove();
+            }
+        });
+    </script>
+<% end %>
 <% content_for :contents do %>
     <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-6 offset-md-3 offset-lg-3">
-            <form action="/login" method="POST">
-                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-                <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-                <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
-                <label for="username" class="sr-only">Username</label>
-                <input type="text" name="form[username]" class="form-control" placeholder="Username" value="<%= flash[:username] %>" required autofocus>
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" name="form[password]" class="form-control" placeholder="Password" required>
-                <br>
-                <% if flash[:error].present?  %>
-                <div class="alert alert-danger" role="alert">
-                    <%= flash[:error]  %>
-                </div>
-                <% end %>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
-            </form>
+        <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+            <div style="padding: 20% 10% 20% 10%;border: 1px solid black;" class="jumbotron">
+                <h1 style="text-align: center">LOGIN FORM</h1><br>
+                <form action="/login" method="POST">
+                    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+                    <label for="username" class="sr-only">Username</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Username" name="form[username]" aria-label="Username" value="<%= flash[:username] %>">
+                    </div>
+                    <label for="password" class="sr-only">Password</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" name="form[password]" placeholder="Password" aria-label="Password" id="password">
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="show-password">
+                        <label class="custom-control-label" for="show-password">Show Password</label>
+                    </div>
+                    <br >
+                    <% if flash[:error].present?  %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <%= flash[:error]  %>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <% end %>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+                </form>
+            </div>
         </div>
     </div>
 <% end %>

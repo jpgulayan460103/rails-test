@@ -43,7 +43,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" form="item-form">Submit</button>
+                        <button type="submit" class="btn btn-primary" form="item-form" :disabled="submit"><i class="el-icon-loading" v-show="submit"></i> Submit</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -61,9 +61,11 @@ export default {
             this.formType = data.formType;
             if(this.formType=="create"){
                 this.formData = {};
+                this.formErrors = {};
                 this.itemFormModal = true;
                 $('#item-modal').modal('show');
             }else{
+                this.formErrors = {};
                 this.formData = _cloneDeep(data.formData);
                 $('#item-modal').modal('show');
             }
@@ -75,6 +77,7 @@ export default {
             formErrors: {},
             itemFormModal: false,
             formType: "create",
+            submit: false,
         }
     },
     methods: {
@@ -87,7 +90,7 @@ export default {
         },
 
         create(){
-            this.submit = false;
+            this.submit = true;
             this.$API.Item.create(this.formData)
             .then(res => {
                 this.$EventDispatcher.fire('ITEM_CREATED', res.data);
@@ -104,7 +107,7 @@ export default {
         },
 
         update() {
-            this.submit = false;
+            this.submit = true;
             this.$API.Item.update(this.formData)
             .then(res => {
                 this.$EventDispatcher.fire('ITEM_UPDATED', res.data);

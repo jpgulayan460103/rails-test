@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :items
   resources :users
   resources :receivings
+  # handle error pages 
+  match "*path", to: "items#index", via: :all
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
