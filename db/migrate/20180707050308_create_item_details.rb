@@ -6,6 +6,7 @@ class CreateItemDetails < ActiveRecord::Migration[5.1]
       t.references :item, foreign_key: {on_delete: :cascade}
       # t.references :sale, foreign_key: true
       t.references :receiving, foreign_key: true
+      t.text :remarks
       t.datetime :deleted_at
 
       t.timestamps

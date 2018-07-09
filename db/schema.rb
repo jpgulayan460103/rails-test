@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.decimal "cost_price", precision: 15, scale: 2
     t.bigint "item_id"
     t.bigint "receiving_id"
+    t.text "remarks"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.string "subcategory"
     t.string "code"
     t.string "unit_of_measure"
+    t.integer "reorder_level"
     t.decimal "retail_price", precision: 15, scale: 2
     t.decimal "dealers_price", precision: 15, scale: 2
     t.datetime "deleted_at"
@@ -52,7 +54,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
   create_table "receiving_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "receiving_id"
     t.bigint "item_id"
-    t.decimal "cost_price", precision: 15, scale: 2
+    t.decimal "price", precision: 15, scale: 2
     t.integer "quantity"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false

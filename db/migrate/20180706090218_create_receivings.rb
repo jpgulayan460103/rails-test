@@ -6,6 +6,7 @@ class CreateReceivings < ActiveRecord::Migration[5.1]
       t.text :comment
       t.datetime :deleted_at
       t.text :deleted_comment
+      # t.references :deleted_by, index: true, foreign_key: {to_table: :users}
       
       t.timestamps
     end

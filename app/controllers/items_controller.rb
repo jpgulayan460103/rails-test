@@ -3,15 +3,13 @@ class ItemsController < ApplicationController
   before_action :authenticateUsers
   def index
     @title = 'Items'
-    # puts session[:user]
   end
   def show
     @item = Item.find_by_id(params[:id]);
-    render json: @item
-    # respond_to do |format|
-    #   format.html { render json: @item }
-    #   format.json { render json: @item }
-    # end
+    respond_to do |format|
+      format.html { render json: @item }
+      format.json { render json: @item }
+    end
   end
   def update
     @item = Item.find_by_id(params[:id])
@@ -19,7 +17,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        saveItem @item
+        saveItem "update"
       end
     end
   end
@@ -28,7 +26,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        saveItem @item
+        saveItem "create"
       end
     end
   end
@@ -48,23 +46,38 @@ class ItemsController < ApplicationController
         render :json => results.to_json
       end
     end
-
-    def destroy
-      @items = Item.find(params[:id])
-      @items.destroy
-    end
-    # render plain: paginate @users
   end
+  def destroy
+    @items = Item.find_by_id(params[:id])
+    @items.destroy
+  end
+    # render plain: paginate @users
 
   private
-  def permittedParams
-    params[:formData].present? ? params[:formData].permit(:name, :category, :dealers_price, :retail_price, :subcategory, :unit_of_measure, :id) : false
-  end
-  def saveItem (item)
-    if item.save
-      render json: item
+  def saveItem (method)
+    if @item.save
+      @item_detail = @item.item_details.create({
+        quantity: params[:formData][:beginning_quantity],
+        remarks: "Beginning Quantity",
+        cost_price: params[:formData][:retail_price]
+      })
+      render json: @item, include: ""
     else
-      render json: { message: "Validation failed", errors: item.errors }, status: 422
+      render json: { message: "Validation failed", errors: @item.errors }, status: 422
     end
+  end
+  def permittedParams
+    params[:formData].present? ? params[:formData].permit(
+      :id,
+      :name,
+      :category,
+      :dealers_price,
+      :retail_price,
+      :subcategory,
+      :unit_of_measure,
+      :reorder_level,
+      :unit_of_measure,
+      :beginning_quantity
+    ) : false
   end
 end

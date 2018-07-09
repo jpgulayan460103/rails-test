@@ -3,6 +3,7 @@
         <el-table :data="items" style="width: 100%" height="70vh" v-loading="loading" element-loading-text="Loading..." element-loading-spinner="el-icon-loading">
             <el-table-column fixed prop="name" label="Item Name" min-width="120" align="center" sortable></el-table-column>
             <el-table-column prop="category" label="Category" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column prop="unit_of_measure" label="UOM" min-width="120" align="center"></el-table-column>
             <el-table-column prop="subcategory" label="Subcategory" min-width="120" align="center" sortable></el-table-column>
             <el-table-column label="Retail Price" min-width="120" align="center">
                 <template slot-scope="scope">
@@ -14,6 +15,7 @@
                     <span> {{ scope.row.dealers_price | currency("",2) }} </span>
                 </template>
             </el-table-column>
+            <el-table-column prop="remaining_quantity" label="Stocks" min-width="120" align="center" sortable></el-table-column>
             <el-table-column label="Operations" min-width="200" align="center">
                 <template slot-scope="scope">
                     <el-button-group>
@@ -59,21 +61,27 @@ export default {
             this.$EventDispatcher.fire('OPEN_ITEM_FORM_MODAL', data);
         },
         handleDelete(data, index){
-            if(confirm("Are you sure you want to delete "+data.name+" in the list?")){
+            this.$confirm("Are you sure you want to delete " + data.name + " in the list?", 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(() => {
                 this.loading = true;
                 this.$API.Item.delete(data)
-                .then(res => {
-                    this.current_page = 1;
-                    this.getItemList();
-                    $.notify(`Item ${data.name} has been deleted.`);
-                })
-                .catch(err => {
+                    .then(res => {
+                        this.current_page = 1;
+                        this.getItemList();
+                        $.notify(`Item ${data.name} has been deleted.`);
+                    })
+                    .catch(err => {
 
-                })
-                .then(() => {
-                    // this.loading = true;
-                });
-            }
+                    })
+                    .then(() => {
+                        // this.loading = true;
+                    });
+            }).catch(() => {
+
+            });
         },
         getItemList(page = 1){
             let params = {

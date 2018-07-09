@@ -12,6 +12,7 @@ default: &default
   username: root
   password:
   socket: /tmp/mysql.sock
+  strict: false
 
 development:
   adapter: mysql2
@@ -21,6 +22,7 @@ development:
   username: root
   password:
   socket: /tmp/mysql.sock
+  strict: false
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -33,6 +35,7 @@ test:
   username: root
   password:
   socket: /tmp/mysql.sock
+  strict: false
 
 production:
   adapter: mysql2
@@ -42,3 +45,4 @@ production:
   username: root
   password:
   socket: /tmp/mysql.sock
+  strict: false

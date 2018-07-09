@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :subcategory
       t.string :code
       t.string :unit_of_measure
+      t.integer :reorder_level
       t.decimal :retail_price, precision: 15, scale: 2
       t.decimal :dealers_price, precision: 15, scale: 2
       t.datetime :deleted_at
