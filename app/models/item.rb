@@ -7,7 +7,7 @@ class Item < ApplicationRecord
     validates :category, presence: true
     validates :unit_of_measure, presence: true
     validates :reorder_level, presence: true, numericality: true
-    validates :beginning_quantity, presence: false, numericality: true
+    validates :beginning_quantity, presence: false, numericality: true, :unless => :has_id?
     validates :subcategory, presence: true
     validates :dealers_price, presence: true, numericality: true
     validates :retail_price, presence: true, numericality: true
@@ -15,5 +15,8 @@ class Item < ApplicationRecord
 
     def remaining_quantity
         ItemDetail.select("sum(quantity) as total").where(item_id: self.id).first.total.to_f
+    end
+    def has_id?
+        self.id.present?
     end
 end

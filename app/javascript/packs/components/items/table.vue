@@ -4,7 +4,7 @@
             <el-table-column fixed prop="name" label="Item Name" min-width="120" align="center" sortable></el-table-column>
             <el-table-column prop="category" label="Category" min-width="120" align="center" sortable></el-table-column>
             <el-table-column prop="unit_of_measure" label="UOM" min-width="120" align="center"></el-table-column>
-            <el-table-column prop="subcategory" label="Subcategory" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column prop="subcategory" label="Subcategory" min-width="130" align="center" sortable></el-table-column>
             <el-table-column label="Retail Price" min-width="120" align="center">
                 <template slot-scope="scope">
                     <span> {{ scope.row.retail_price | currency("",2) }} </span>
