@@ -7,6 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+window.$ = window.jQuery = require('jquery');
+require('bootstrap');
 import Vue from 'vue/dist/vue.js'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
@@ -18,10 +20,8 @@ import Api from './api/api.main.js'
 import './notify.js'
 import './components/components.main.js'
 import '@fortawesome/fontawesome-free/js/all.js'
-import "tether";
-import "bootstrap/dist/js/bootstrap.js";
 
-import "bootstrap/dist/css/bootstrap.css";
+
 import "element-ui/lib/theme-chalk/index.css";
 import "balloon-css/balloon.css";
 import "@fortawesome/fontawesome-free/scss/fontawesome.scss";

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= stylesheet_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'bootstrap' %>
     <style>
     .ml-auto .dropdown-menu {
       left: auto !important;
@@ -61,7 +62,6 @@
       </div>
       <%= yield :modals %>
     </div>
-    <%= javascript_include_tag :application %>
     <%= javascript_pack_tag 'application' %>
     <%= yield :js %>
   </body>
