@@ -919,6 +919,12 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
+bootstrap-4@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-4/-/bootstrap-4-4.0.0.tgz#14ec175ff5565d838bc297be8cdede61210c7041"
+  dependencies:
+    bootstrap "^4.0.0-alpha.6"
+
 bootstrap-vue@^2.0.0-rc.11:
   version "2.0.0-rc.11"
   resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.11.tgz#47aaa6d2a8d390477de75e636d8ea652b1d03f59"
@@ -936,6 +942,10 @@ bootstrap@4.0.0-alpha.6:
   dependencies:
     jquery ">=1.9.1"
     tether "^1.4.0"
+
+bootstrap@^4.0.0-alpha.6:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.2.tgz#aee2a93472e61c471fc79fb475531dcbc87de326"
 
 bootstrap@^4.1.1:
   version "4.1.1"
@@ -5723,7 +5733,7 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-tether@^1.4.0:
+tether@^1.4.0, tether@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
 

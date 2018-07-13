@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     paginates_per 1
 
     def remaining_quantity
-        ItemDetail.select("sum(quantity) as total").where(item_id: self.id).first.total.to_f
+        ItemDetail.where(item_id: self.id).sum("quantity").to_f
     end
     def has_id?
         self.id.present?

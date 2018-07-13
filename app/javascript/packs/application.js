@@ -18,6 +18,13 @@ import Api from './api/api.main.js'
 import './notify.js'
 import './components/components.main.js'
 import '@fortawesome/fontawesome-free/js/all.js'
+import "tether";
+import "bootstrap/dist/js/bootstrap.js";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "element-ui/lib/theme-chalk/index.css";
+import "balloon-css/balloon.css";
+import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 
 
 
