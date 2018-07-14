@@ -74,6 +74,7 @@ class ItemsController < ApplicationController
       :dealers_price,
       :retail_price,
       :subcategory,
+      :code,
       :unit_of_measure,
       :reorder_level,
       :unit_of_measure,

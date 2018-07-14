@@ -12,10 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180707050308) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "item_details", force: :cascade do |t|
+  create_table "item_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "quantity"
     t.decimal "cost_price", precision: 15, scale: 2
     t.bigint "item_id"
@@ -29,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.index ["receiving_id"], name: "index_item_details_on_receiving_id"
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "category"
     t.string "subcategory"
@@ -44,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
   end
 
-  create_table "purchase_orders", force: :cascade do |t|
+  create_table "purchase_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "number"
     t.bigint "user_id"
     t.datetime "deleted_at"
@@ -54,7 +51,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.index ["user_id"], name: "index_purchase_orders_on_user_id"
   end
 
-  create_table "receiving_details", force: :cascade do |t|
+  create_table "receiving_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "receiving_id"
     t.bigint "item_id"
     t.decimal "price", precision: 15, scale: 2
@@ -67,7 +64,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.index ["receiving_id"], name: "index_receiving_details_on_receiving_id"
   end
 
-  create_table "receivings", force: :cascade do |t|
+  create_table "receivings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "purchase_order_id"
     t.bigint "user_id"
     t.text "comment"
@@ -80,7 +77,7 @@ ActiveRecord::Schema.define(version: 20180707050308) do
     t.index ["user_id"], name: "index_receivings_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false

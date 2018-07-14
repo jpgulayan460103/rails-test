@@ -2,6 +2,7 @@
     <div>
         <el-table :data="items" style="width: 100%" height="70vh" v-loading="loading" element-loading-text="Loading..." element-loading-spinner="el-icon-loading">
             <el-table-column fixed prop="name" label="Item Name" min-width="120" align="center" sortable></el-table-column>
+            <el-table-column prop="code" label="Item Code" min-width="120" align="center" sortable></el-table-column>
             <el-table-column prop="category" label="Category" min-width="120" align="center" sortable></el-table-column>
             <el-table-column prop="unit_of_measure" label="UOM" min-width="120" align="center"></el-table-column>
             <el-table-column prop="subcategory" label="Subcategory" min-width="130" align="center" sortable></el-table-column>

@@ -3,6 +3,7 @@ class Item < ApplicationRecord
     attr_accessor :beginning_quantity
 
     has_many :item_details, dependent: :destroy
+    belongs_to :item_category
     validates :name, presence: true, uniqueness: true
     validates :category, presence: true
     validates :unit_of_measure, presence: true

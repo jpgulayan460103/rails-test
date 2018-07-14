@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: one
+  subcategory: MyString
+  deleted_at: 2018-07-14 16:29:15
+
+two:
+  category: two
+  subcategory: MyString
+  deleted_at: 2018-07-14 16:29:15

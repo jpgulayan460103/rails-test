@@ -4,6 +4,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :category
       t.string :subcategory
+      t.references :category, foreign_key: {on_delete: :set_null}
       t.string :code
       t.string :unit_of_measure
       t.integer :reorder_level

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'login', to: 'authentication#authenticate'
   root 'items#index'
   resources :items
+  resources :item_categories
   resources :users
   resources :receivings
   # handle error pages 

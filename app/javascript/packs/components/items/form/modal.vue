@@ -12,11 +12,27 @@
                     </div>
                     <div class="modal-body">
                         <form id="item-form" @submit.prevent="itemFormSubmit">
+                            <el-form :label-position="'top'">
                             <div class="form-group">
                                 <label for="name">Item Name</label>
                                 <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Enter item name" v-model="formData.name" :class="{'is-invalid':formErrors.name}">
                                 <div class="invalid-feedback" v-if="formErrors.name">
                                     Item Name {{ formErrors.name[0] }}
+                                </div>
+                            </div>
+                            <el-form-item label="Item Category" :error="formErrors.category ? 'Item Category ' + formErrors.category[0] : null">
+                                <el-select size="large" style="width:100%" v-model="formData.received_by" filterable clearable remote placeholder="Search Offical"
+                                :remote-method="searchItemCategory">
+                                    <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <div class="form-group">
+                                <label for="code">Item Code</label>
+                                <input type="text" class="form-control" id="code" aria-describedby="code" placeholder="Item Code"
+                                    v-model="formData.code" :class="{'is-invalid':formErrors.code}">
+                                <div class="invalid-feedback" v-if="formErrors.code">
+                                    Item Code {{ formErrors.code[0] }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -78,6 +94,7 @@
                                     Beginning Quantity {{ formErrors.beginning_quantity[0] }}
                                 </div>
                             </div>
+                            </el-form>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -92,6 +109,7 @@
 
 <script>
 import _cloneDeep from "lodash.clonedeep";
+import _debounce from "lodash.debounce";
 
 export default {
     created(){
@@ -116,9 +134,26 @@ export default {
             itemFormModal: false,
             formType: "create",
             submit: false,
+            loading: false,
+            categories: [],
         }
     },
     methods: {
+        searchItemCategory: _debounce(function (query) {
+            this.loading = true;
+            if (query) {
+                this.$API.Item.getList(query)
+                .then(res => {
+                    if (res.data.results) {
+                        this.categories = res.data.results;
+                    }
+                })
+                .catch()
+                .then(() => {
+                    this.loading = false;
+                });
+            }
+        }, 250),
         itemFormSubmit(){
             if(this.formType == "create"){
                 this.create();
@@ -164,5 +199,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+    .el-form-item__label{
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
+    }
+    .el-form-item{
+        margin-bottom: 16px !important;
+    }
 </style>
